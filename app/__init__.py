@@ -26,9 +26,10 @@ def make_app(config='config.py'):
     # Setup the Flask-JWT-Extended
     JWTManager(app)
 
+    # Degine all the moduls
+    from app.modules import users
+
+    # Register the blueprint of each module
+    app.register_blueprint(users.module)
+
     return app
-
-
-if __name__ == "__main__":
-    app = make_app('config.py')
-    app.run(host='0.0.0.0', port=5000)
