@@ -7,3 +7,6 @@ PREFERRED_URL_SCHEME = "https"
 # Log
 APP_LOG_FILE = 'log/app.log'
 APP_LOG_LEVEL = 'DEBUG'
+
+# JWT
+JWT_SECRET_KEY = ''
