@@ -3,6 +3,7 @@ import logging.handlers
 
 from flask import Flask
 from flask_jwt_extended import JWTManager
+from flask_cors import CORS
 from models.db import db
 
 
@@ -19,6 +20,9 @@ def make_app(config='config.py'):
     handler.setLevel(app.config['APP_LOG_LEVEL'])
     app.logger.addHandler(handler)
     app.logger.setLevel(app.config['APP_LOG_LEVEL'])
+
+    # Allow CORS
+    CORS(app, supports_credentials=True)
 
     # Initialise the app with the database setup
     db.init_app(app)
