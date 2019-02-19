@@ -1,5 +1,8 @@
-from flask import request, jsonify
-from flask_jwt_extended import jwt_required, create_access_token, set_access_cookies
+from flask import request, jsonify, current_app
+from flask_jwt_extended import (
+    create_access_token, create_refresh_token,
+    set_access_cookies, set_refresh_cookies, jwt_refresh_token_required,
+    get_jwt_identity)
 
 # Import database models
 from models.db import db
@@ -10,6 +13,12 @@ def login():
     # Get the data from the request JSON
     username = str(request.json.get("username"))
     password = str(request.json.get("password"))
+    remember = request.json.get("remember")
+
+    # Define return message
+    message = {
+        "status": 0
+    }
 
     # Check if the data is present
     if username and password:
@@ -20,16 +29,44 @@ def login():
         ).first()
         if user:
             if user.check_password(password):
-                access_token = create_access_token(identity=user.id_user_hash)
-                resp = jsonify({"login": True})
-                set_access_cookies(resp, access_token)
+                access_token = create_access_token(
+                    identity=user.id_user_hash)
+                refresh_token = create_refresh_token(
+                    identity=user.id_user_hash)
+
+                if remember:
+                    access_expire = current_app.config["JWT_ACCESS_TOKEN_EXPIRES"]
+                    refresh_expire = current_app.config["JWT_REFRESH_TOKEN_EXPIRES"]
+                else:
+                    access_expire = None
+                    refresh_expire = None
+
+                message["status"] = 1
+
+                resp = jsonify(message)
+                set_access_cookies(resp, access_token, max_age=access_expire)
+                set_refresh_cookies(resp, refresh_token,
+                                    max_age=refresh_expire)
                 return resp, 200
-        else:
-            return jsonify({
-                "Message": "User Not Found"
-            }), 404
+
+    return jsonify(message), 401
+
+
+@jwt_refresh_token_required
+def refresh():
+    # Create new access token
+    current_user = get_jwt_identity()
+    if current_user:
+        access_token = create_access_token(identity=current_user)
+        access_expire = current_app.config["JWT_ACCESS_TOKEN_EXPIRES"]
+
+        resp = jsonify({
+            "status": 1
+        })
+        set_access_cookies(resp, access_token, max_age=access_expire)
+        return resp, 200
     else:
-        # Return error message if the data is incomplete
-        return jsonify({
-            "Message": "Missing information"
-        }), 400
+        resp = jsonify({
+            "status": 0
+        })
+        return resp, 401
