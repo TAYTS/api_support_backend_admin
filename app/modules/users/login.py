@@ -1,6 +1,6 @@
 from flask import request, jsonify, current_app
 from flask_jwt_extended import (
-    create_access_token, create_refresh_token,
+    jwt_required, create_access_token, create_refresh_token,
     set_access_cookies, set_refresh_cookies, jwt_refresh_token_required,
     get_jwt_identity)
 
@@ -30,7 +30,7 @@ def login():
         if user:
             if user.check_password(password):
                 access_token = create_access_token(
-                    identity=user.id_user_hash)
+                    identity=user.id_user_hash, fresh=True)
                 refresh_token = create_refresh_token(
                     identity=user.id_user_hash)
 
@@ -44,7 +44,8 @@ def login():
                 message["status"] = 1
 
                 resp = jsonify(message)
-                set_access_cookies(resp, access_token, max_age=access_expire)
+                set_access_cookies(resp, access_token,
+                                   max_age=access_expire)
                 set_refresh_cookies(resp, refresh_token,
                                     max_age=refresh_expire)
                 return resp, 200
@@ -57,7 +58,7 @@ def refresh():
     # Create new access token
     current_user = get_jwt_identity()
     if current_user:
-        access_token = create_access_token(identity=current_user)
+        access_token = create_access_token(identity=current_user, fresh=False)
         access_expire = current_app.config["JWT_ACCESS_TOKEN_EXPIRES"]
 
         resp = jsonify({
@@ -70,3 +71,16 @@ def refresh():
             "status": 0
         })
         return resp, 401
+
+
+@jwt_required
+def authenticate():
+    current_user = get_jwt_identity()
+    if current_user:
+        return jsonify({
+            "status": 1
+        }), 200
+    else:
+        return jsonify({
+            "status": 0
+        }), 401
