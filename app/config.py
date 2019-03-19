@@ -4,11 +4,13 @@ from datetime import timedelta
 # SQL
 SQLALCHEMY_DATABASE_URI = "mysql://:@:3306/"
 SQLALCHEMY_TRACK_MODIFICATIONS = False
+SQLALCHEMY_POOL_RECYCLE = 299
+SQLALCHEMY_POOL_RECYCLE = 20
 PREFERRED_URL_SCHEME = "https"
 
 # Log
-APP_LOG_FILE = 'log/app.log'
-APP_LOG_LEVEL = 'DEBUG'
+APP_LOG_FILE = "log/app.log"
+APP_LOG_LEVEL = "DEBUG"
 
 # JWT
 JWT_SECRET_KEY = 'secret-key'
