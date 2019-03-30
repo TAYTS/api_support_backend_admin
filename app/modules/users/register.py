@@ -10,6 +10,7 @@ from models.users import Users
 
 
 def register():
+
     username = str(request.json.get("username"))
     password = str(request.json.get("password"))
 
