@@ -31,7 +31,6 @@ def retrieve_tickets(jobLevel):
                 TicketRecords.status == -1
             ).order_by(
                 TicketRecords.last_activity_timestamp
-            #     ,desc()??
             ).all()
             for ticket in tickets:
                 base = {

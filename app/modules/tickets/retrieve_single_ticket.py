@@ -17,98 +17,105 @@ def retrieve_single_ticket(jobLevel, postQuery):
     id_user = db.session.query(Users.id_user).filter(
         Users.id_user_hash == id_user_hash
     ).first()
+    if id_user:
+        # Define the default return message
+        messages = []
+        # Define the default return message
+        if (jobLevel == "newjobs"):
+            test1time = date(2019, 3, 22)
 
-    # Define the default return message
-    messages = []
-    # Define the default return message
-    if (jobLevel == "newjobs"):
-        test1time = date(2019, 3, 22)
+            postID = 0
 
-        postID = 0
+            messages.append({"postID": postID,
+                             "sender": "aaaa",
+                             "title": "hellcvsvdvo tdsdasdhere",
+                             "body": "hello thedsvdsvsdqre czxcxthis is the body",
+                             "dateTime": test1time})
+            postID += 1
+            messages.append({"postID": postID, "sender": "mob",
+                             "title": "hello t2123123123heaaare",
+                             "body": "hello 1221e taacassccssachis is the body",
+                             "dateTime": test1time})
 
-        messages.append({"postID": postID,
-                         "sender": "aaaa",
-                         "title": "hellcvsvdvo tdsdasdhere",
-                         "body": "hello thedsvdsvsdqre czxcxthis is the body",
-                         "dateTime": test1time})
-        postID += 1
-        messages.append({"postID": postID, "sender": "mob",
-                         "title": "hello t2123123123heaaare",
-                         "body": "hello 1221e taacassccssachis is the body",
-                         "dateTime": test1time})
+            test1time = date(2019, 3, 21)
+            postID += 1
+            messages.append({"postID": postID, "sender": "aaaa",
+                             "title": "hello tdsdasdhere",
+                             "body": "hello there czxcxthis is the body",
+                             "dateTime": test1time})
+            postID += 1
+            messages.append({"postID": postID, "sender": "mob",
+                             "title": "hello theaaare",
+                             "body": "hello thsdazxczxcssdere taacassccssachis is the body",
+                             "dateTime": test1time})
 
-        test1time = date(2019, 3, 21)
-        postID += 1
-        messages.append({"postID": postID, "sender": "aaaa",
-                         "title": "hello tdsdasdhere",
-                         "body": "hello there czxcxthis is the body",
-                         "dateTime": test1time})
-        postID += 1
-        messages.append({"postID": postID, "sender": "mob",
-                         "title": "hello theaaare",
-                         "body": "hello thsdazxczxcssdere taacassccssachis is the body",
-                         "dateTime": test1time})
+            test1time = date(2019, 3, 15)
+            postID += 1
+            messages.append({"postID": postID, "sender": "bob",
+                             "title": "hello there",
+                             "body": "hello there this is the body",
+                             "dateTime": test1time})
+            postID = 20
+            messages.append({"postID": postID, "sender": "mob",
+                             "title": "hello theaaare",
+                             "body": "hello thsdassdere this is the body",
+                             "dateTime": test1time})
 
-        test1time = date(2019, 3, 15)
-        postID += 1
-        messages.append({"postID": postID, "sender": "bob",
-                         "title": "hello there",
-                         "body": "hello there this is the body",
-                         "dateTime": test1time})
-        postID = 20
-        messages.append({"postID": postID, "sender": "mob",
-                         "title": "hello theaaare",
-                         "body": "hello thsdassdere this is the body",
-                         "dateTime": test1time})
+        elif (jobLevel == "myjobs"):
+            test1time = date(2019, 3, 22)
 
-    elif (jobLevel == "myjobs"):
-        test1time = date(2019, 3, 22)
+            postID = 0
 
-        postID = 0
+            messages.append({"postID": postID,
+                             "sender": "bbbbb",
+                             "title": "asdasddad tdsdasdhere",
+                             "body": "loremsandosadoasdodasposadaopspcmoczx",
+                             "dateTime": test1time})
+            postID += 1
+            messages.append({"postID": postID, "sender": "moasdsadb",
+                             "title": "hello asd2ddsadasds",
+                             "body": "hello 12asdd22dasdasdasd21e taacassccssachis is the body",
+                             "dateTime": test1time})
 
-        messages.append({"postID": postID,
-                         "sender": "bbbbb",
-                         "title": "asdasddad tdsdasdhere",
-                         "body": "loremsandosadoasdodasposadaopspcmoczx",
-                         "dateTime": test1time})
-        postID += 1
-        messages.append({"postID": postID, "sender": "moasdsadb",
-                         "title": "hello asd2ddsadasds",
-                         "body": "hello 12asdd22dasdasdasd21e taacassccssachis is the body",
-                         "dateTime": test1time})
+            test1time = date(2019, 3, 21)
+            postID += 1
+            messages.append({"postID": postID, "sender": "aa2ddsdwdwdaa",
+                             "title": "helsadad12d12d2lo tdsdaassdhere",
+                             "body": "hesadadq2d2dwqllo there czxcxthis is the body",
+                             "dateTime": test1time})
+            postID += 1
+            messages.append({"postID": postID, "sender": "moqwdwqd2qd21db",
+                             "title": "heqddwqdqwdllo theaaare",
+                             "body": "wqdqdwqdwdqwdqwdhello thsdazxczxcssdere taacassccssachis is the body",
+                             "dateTime": test1time})
 
-        test1time = date(2019, 3, 21)
-        postID += 1
-        messages.append({"postID": postID, "sender": "aa2ddsdwdwdaa",
-                         "title": "helsadad12d12d2lo tdsdaassdhere",
-                         "body": "hesadadq2d2dwqllo there czxcxthis is the body",
-                         "dateTime": test1time})
-        postID += 1
-        messages.append({"postID": postID, "sender": "moqwdwqd2qd21db",
-                         "title": "heqddwqdqwdllo theaaare",
-                         "body": "wqdqdwqdwdqwdqwdhello thsdazxczxcssdere taacassccssachis is the body",
-                         "dateTime": test1time})
-
-        test1time = date(2019, 3, 15)
-        postID += 1
-        messages.append({"postID": postID, "sender": "bob",
-                         "title": "helqwdqwdqwdwqdwqlo there",
-                         "body": "hello there this is the body",
-                         "dateTime": test1time})
-        postID = 20
-        messages.append({"postID": postID, "sender": "mob",
-                         "title": "hello theaaare",
-                         "body": "hello thsdassdere this is the body",
-                         "dateTime": test1time})
+            test1time = date(2019, 3, 15)
+            postID += 1
+            messages.append({"postID": postID, "sender": "bob",
+                             "title": "helqwdqwdqwdwqdwqlo there",
+                             "body": "hello there this is the body",
+                             "dateTime": test1time})
+            postID = 20
+            messages.append({"postID": postID, "sender": "mob",
+                             "title": "hello theaaare",
+                             "body": "hello thsdassdere this is the body",
+                             "dateTime": test1time})
 
 
-    # todo fix error reporting here
-    for message in messages:
-        print(int(message["postID"]) == int(postQuery))
-        if int(message["postID"]) == int(postQuery):
-            queryMessage  = message
-            break
-    return jsonify(queryMessage), 200
+        # todo fix error reporting here
+        # for message in messages:
+        #     print(int(message["postID"]) == int(postQuery))
+        #     if int(message["postID"]) == int(postQuery):
+        #         queryMessage  = message
+        #         break
+        queryMessage = {"postID": 123, "sender": "mob",
+                             "title": "hello theaaare",
+                             "body": "hello thsdassdere this is the body",
+                             "dateTime":  date(2019, 3, 22)}
+        return jsonify(queryMessage), 200
+    return jsonify({
+        "message": "Invalid credential"
+    }), 401
 
     # Found the user
     # if id_user:
