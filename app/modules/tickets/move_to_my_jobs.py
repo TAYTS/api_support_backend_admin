@@ -33,9 +33,9 @@ def move_to_my_jobs(postQuery):
             ticket.id_admin = id_user.id_user
             db.session.commit()
             message["status"] = 1
+            return jsonify(message), 200
         except Exception as e:
             current_app.logger.error("Unable to commit change to DB: " + str(e))
-
-        return jsonify(message), 200
+            return jsonify(message), 500
 
     return jsonify({"message": "Invalid credential"}), 401
