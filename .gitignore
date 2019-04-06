@@ -1,7 +1,8 @@
 *.pyc
 /venv
 __pycache__
-
+/log
+/.idea
 
 # Ignore system file
 .DS_Store
