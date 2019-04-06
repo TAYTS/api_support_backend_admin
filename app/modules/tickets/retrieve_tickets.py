@@ -9,7 +9,6 @@ from models.tickets import TicketRecords
 from app.utils.create_timestamp_str import create_timestamp_str
 
 
-
 @jwt_required
 def retrieve_tickets(jobLevel):
     # Get the id_user_hash from the jwt_token
