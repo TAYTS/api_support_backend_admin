@@ -16,7 +16,7 @@ module.add_url_rule("/tickets/retrieve-single-ticket/<jobLevel>/<postQuery>",
                     view_func=retrieve_single_ticket, methods=["GET"]),
 module.add_url_rule("/tickets/move-to-my-jobs/<postQuery>",
                     view_func=move_to_my_jobs, methods=["GET"])
-module.add_url_rule("/tickets/creat-tickets",
+module.add_url_rule("/tickets/create-tickets",
                     view_func=create_ticket, methods=["POST"])
 module.add_url_rule("/tickets/retrieve-user-tickets",
                     view_func=retrieve_user_tickets, methods=["GET"])
