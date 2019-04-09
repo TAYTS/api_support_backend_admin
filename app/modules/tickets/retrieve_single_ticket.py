@@ -1,4 +1,4 @@
-from flask import jsonify, current_app
+from flask import jsonify
 from flask_jwt_extended import jwt_required, get_jwt_identity
 
 # Import database models
@@ -21,19 +21,19 @@ def retrieve_single_ticket(jobLevel, postQuery):
     ).first()
     if id_user:
         # Define the default return message
-        messages = []
-        # Define the default return message
         if jobLevel == "newjobs":
             ticket = db.session.query(TicketRecords).filter(
-                TicketRecords.id_ticket_hash == postQuery, TicketRecords.status == -1
+                TicketRecords.id_ticket_hash == postQuery,
+                TicketRecords.status == -1
             ).first()
-        elif jobLevel=="myjobs":
+        elif jobLevel == "myjobs":
             ticket = db.session.query(TicketRecords).filter(
-                TicketRecords.id_ticket_hash == postQuery, TicketRecords.id_admin == id_user
+                TicketRecords.id_ticket_hash == postQuery,
+                TicketRecords.id_admin == id_user
             ).first()
 
-        if ticket == None:
-            return jsonify({"message": "Invalid ticket number"}), 205
+        if ticket is None:
+            return jsonify({"message": "Invalid ticket number"}), 404
 
         queryMessage = {
             "title": ticket.title,
@@ -44,4 +44,4 @@ def retrieve_single_ticket(jobLevel, postQuery):
         return jsonify(queryMessage), 200
     return jsonify({
         "message": "Invalid credential"
-}), 401
+    }), 401
