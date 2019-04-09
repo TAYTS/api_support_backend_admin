@@ -61,13 +61,15 @@ class TestSingleTicket(UserUnitTest):
             db.session.add(ticket)
             db.session.commit()
 
-    def add_single_newjobs_ticket_record(self, id_ticket_hash, timestamp=datetime.utcnow().replace(microsecond=0)):
+    def add_single_newjobs_ticket_record(self,
+                                         id_ticket_hash,
+                                         timestamp=datetime.utcnow()
+                                         .replace(microsecond=0)):
         id_user = db.session.query(Users.id_user).order_by(
             Users.create_timestamp
         ).first()
         title = "testing"
         category = "testing"
-        # Create 5 ticket records
 
         ticket = TicketRecords(
             id_ticket_hash=id_ticket_hash,
@@ -84,7 +86,10 @@ class TestSingleTicket(UserUnitTest):
         db.session.commit()
         return ticket
 
-    def add_single_myjobs_ticket_record(self, id_ticket_hash, timestamp=datetime.utcnow().replace(microsecond=0)):
+    def add_single_myjobs_ticket_record(self,
+                                        id_ticket_hash,
+                                        timestamp=datetime.utcnow()
+                                        .replace(microsecond=0)):
         ids = db.session.query(Users.id_user).order_by(
             Users.create_timestamp
         ).all()
@@ -92,7 +97,6 @@ class TestSingleTicket(UserUnitTest):
         id_admin = ids[1]
         title = "testing"
         category = "testing"
-        # Create 5 ticket records
 
         ticket = TicketRecords(
             id_ticket_hash=id_ticket_hash,
@@ -119,7 +123,9 @@ class TestSingleTicket(UserUnitTest):
         self.populate_newjobs_ticket_record()
         """ TESTING """
         response = self.client.get(
-            url_for("tickets.retrieve_single_ticket", jobLevel="newjobs", postQuery=id_ticket_hash),
+            url_for("tickets.retrieve_single_ticket",
+                    jobLevel="newjobs",
+                    postQuery=id_ticket_hash),
             headers=self.csrf_headers
         )
 
@@ -147,7 +153,9 @@ class TestSingleTicket(UserUnitTest):
         self.populate_myjobs_ticket_record()
         """ TESTING """
         response = self.client.get(
-            url_for("tickets.retrieve_single_ticket", jobLevel="myjobs", postQuery=id_ticket_hash),
+            url_for("tickets.retrieve_single_ticket",
+                    jobLevel="myjobs",
+                    postQuery=id_ticket_hash),
             headers=self.csrf_headers
         )
 
@@ -175,14 +183,14 @@ class TestSingleTicket(UserUnitTest):
         self.populate_newjobs_ticket_record()
         """ TESTING """
         response = self.client.get(
-            url_for("tickets.retrieve_single_ticket", jobLevel="newjobs", postQuery=str(uuid4())),
+            url_for("tickets.retrieve_single_ticket",
+                    jobLevel="newjobs",
+                    postQuery=str(uuid4())),
             headers=self.csrf_headers
         )
 
         resp_body = response.get_json()
-        userID = db.session.query(Users.id_user).order_by(
-            Users.create_timestamp
-        ).first()
+        self.assert404(response)
         self.assertEqual(
             resp_body, {"message": "Invalid ticket number"}
         )
@@ -196,14 +204,14 @@ class TestSingleTicket(UserUnitTest):
         self.populate_myjobs_ticket_record()
         """ TESTING """
         response = self.client.get(
-            url_for("tickets.retrieve_single_ticket", jobLevel="myjobs", postQuery=str(uuid4())),
+            url_for("tickets.retrieve_single_ticket",
+                    jobLevel="myjobs",
+                    postQuery=str(uuid4())),
             headers=self.csrf_headers
         )
 
         resp_body = response.get_json()
-        userID = db.session.query(Users.id_user).order_by(
-            Users.create_timestamp
-        ).first()
+        self.assert404(response)
         self.assertEqual(
             resp_body, {"message": "Invalid ticket number"}
         )
@@ -214,8 +222,9 @@ class TestSingleTicket(UserUnitTest):
         self.add_single_myjobs_ticket_record(id_ticket_hash)
         """ TESTING """
         response = self.client.get(
-            url_for("tickets.retrieve_single_ticket", jobLevel="myjobs", postQuery=id_ticket_hash
-                    ))
+            url_for("tickets.retrieve_single_ticket",
+                    jobLevel="myjobs",
+                    postQuery=id_ticket_hash))
         self.assert401(response)
         self.assertEqual(
             response.get_json(),
@@ -229,8 +238,9 @@ class TestSingleTicket(UserUnitTest):
         self.add_single_myjobs_ticket_record(id_ticket_hash)
         """ TESTING """
         response = self.client.get(
-            url_for("tickets.retrieve_single_ticket", jobLevel="myjobs", postQuery=id_ticket_hash
-                    ))
+            url_for("tickets.retrieve_single_ticket",
+                    jobLevel="myjobs",
+                    postQuery=id_ticket_hash))
         self.assert401(response)
         self.assertEqual(
             response.get_json(),
@@ -243,8 +253,9 @@ class TestSingleTicket(UserUnitTest):
         self.add_single_newjobs_ticket_record(id_ticket_hash)
         """ TESTING """
         response = self.client.get(
-            url_for("tickets.retrieve_single_ticket", jobLevel="newjobs", postQuery=id_ticket_hash
-                    ))
+            url_for("tickets.retrieve_single_ticket",
+                    jobLevel="newjobs",
+                    postQuery=id_ticket_hash))
         self.assert401(response)
         self.assertEqual(
             response.get_json(),
@@ -258,8 +269,9 @@ class TestSingleTicket(UserUnitTest):
         self.add_single_newjobs_ticket_record(id_ticket_hash)
         """ TESTING """
         response = self.client.get(
-            url_for("tickets.retrieve_single_ticket", jobLevel="newjobs", postQuery=id_ticket_hash
-                    ))
+            url_for("tickets.retrieve_single_ticket",
+                    jobLevel="newjobs",
+                    postQuery=id_ticket_hash))
         self.assert401(response)
         self.assertEqual(
             response.get_json(),
