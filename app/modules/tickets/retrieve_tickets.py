@@ -1,4 +1,4 @@
-from flask import jsonify, current_app
+from flask import jsonify
 from flask_jwt_extended import jwt_required, get_jwt_identity
 
 # Import database models
@@ -7,7 +7,6 @@ from models.users import Users
 from models.tickets import TicketRecords
 
 from app.utils.create_timestamp_str import create_timestamp_str
-
 
 
 @jwt_required
