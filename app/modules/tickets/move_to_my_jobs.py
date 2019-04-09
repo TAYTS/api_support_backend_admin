@@ -36,6 +36,6 @@ def move_to_my_jobs(postQuery):
             return jsonify(message), 200
         except Exception as e:
             current_app.logger.error("Unable to commit change to DB: " + str(e))
-            return jsonify(message), 500
+        return jsonify({"message": "Unable to commit change to DB."}), 500
 
     return jsonify({"message": "Invalid credential"}), 401
