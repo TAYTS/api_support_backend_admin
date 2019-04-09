@@ -1,6 +1,5 @@
 """ Testing Configurations """
 from datetime import timedelta
-import os
 
 # Environment
 TESTING = True
