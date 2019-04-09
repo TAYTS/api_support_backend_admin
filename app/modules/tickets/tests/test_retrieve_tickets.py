@@ -35,8 +35,8 @@ class TestRetrieveTicket(UserUnitTest):
 
     def populate_myjobs_ticket_record(self):
         ids = db.session.query(Users.id_user).order_by(
-                Users.create_timestamp
-            ).all()
+            Users.create_timestamp
+        ).all()
         id_user = ids[0]
         id_admin = ids[1]
         title = "testing"

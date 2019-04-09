@@ -13,8 +13,8 @@ class TestMoveToMyJobs(UserUnitTest):
 
     def populate_newjobs_ticket_record(self):
         id_user = db.session.query(Users.id_user).order_by(
-                    Users.create_timestamp
-                ).first()
+            Users.create_timestamp
+        ).first()
         title = "testing"
         category = "testing"
         # Create 5 ticket records
@@ -37,8 +37,8 @@ class TestMoveToMyJobs(UserUnitTest):
 
     def add_single_newjobs_ticket_record(self, id_ticket_hash):
         id_user = db.session.query(Users.id_user).order_by(
-                    Users.create_timestamp
-                ).first()
+            Users.create_timestamp
+        ).first()
         title = "testing"
         category = "testing"
         # Create 5 ticket records
