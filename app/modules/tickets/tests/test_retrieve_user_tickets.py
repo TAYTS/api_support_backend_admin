@@ -12,7 +12,9 @@ from models.tickets import TicketRecords
 class TestRetrieveUserTickets(UserUnitTest):
 
     def populate_ticket_record(self):
-        id_user = db.session.query(Users.id_user).first()
+        id_user = db.session.query(Users.id_user).order_by(
+                Users.create_timestamp
+            ).first()
         title = "testing"
         category = "testing"
         # Create 5 ticket records
