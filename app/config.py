@@ -21,3 +21,6 @@ JWT_CSRF_METHODS = ["GET", "POST", "PUT", "DELETE"]
 JWT_COOKIE_SECURE = False
 JWT_COOKIE_CSRF_PROTECT = True
 JWT_COOKIE_DOMAIN = "127.0.0.1"
+
+# MESSAGE API
+MESSAGE_API = "https://message.chocolatepie.tech/messages/"
