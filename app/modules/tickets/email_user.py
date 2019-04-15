@@ -5,7 +5,6 @@ import requests
 from models.db import db
 from models.users import Users
 from models.tickets import TicketRecords
-from app.config import EMAIL_SERVER_TOKEN, POSTMAN_TOKEN
 
 
 
@@ -40,10 +39,10 @@ def email_user(postQuery):
         body = "Your ticket: <b>" + postQuery + "</b> has recieved a reply. Please check the Accenture support portal at https://user.chocolatepie.tech/"
         payload = "{\n\t\"subject\": \"" + subject + "\",\n\t\"sender\": \"support@accenture.com\",\n\t\"recipient\": \"" + email + "\",\n\t\"html\": \"" + body + "\"\n}\n"
         headers = {
-            'Server-Token': EMAIL_SERVER_TOKEN,
+            'Server-Token': current_app.config["EMAIL_SERVER_TOKEN"],
             'Content-Type': "application/json",
             'cache-control': "no-cache",
-            'Postman-Token': POSTMAN_TOKEN
+            'Postman-Token': current_app.config["POSTMAN_TOKEN"]
         }
         # send post request to Accenture API
         response = requests.post("POST", url, data=payload, headers=headers)
