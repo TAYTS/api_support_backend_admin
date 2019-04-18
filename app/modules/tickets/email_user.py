@@ -1,11 +1,11 @@
 from flask import jsonify, current_app
 from flask_jwt_extended import jwt_required, get_jwt_identity
 import requests
+
 # Import database models
 from models.db import db
 from models.users import Users
 from models.tickets import TicketRecords
-
 
 
 @jwt_required
@@ -36,8 +36,10 @@ def email_user(postQuery):
         subject = "Accenture support has replied to your ticket: " + postQuery
         email = user.email
         email = "kensim28@hotmail.com"
-        body = "Your ticket: <b>" + postQuery + "</b> has recieved a reply. Please check the Accenture support portal at https://user.chocolatepie.tech/"
-        payload = "{\n\t\"subject\": \"" + subject + "\",\n\t\"sender\": \"support@accenture.com\",\n\t\"recipient\": \"" + email + "\",\n\t\"html\": \"" + body + "\"\n}\n"
+        body = "Your ticket: <b>" + postQuery + \
+            "</b> has recieved a reply. Please check the Accenture support portal at https://user.chocolatepie.tech/"
+        payload = "{\n\t\"subject\": \"" + subject + "\",\n\t\"sender\": \"support@accenture.com\",\n\t\"recipient\": \"" + \
+            email + "\",\n\t\"html\": \"" + body + "\"\n}\n"
         headers = {
             'Server-Token': current_app.config["EMAIL_SERVER_TOKEN"],
             'Content-Type': "application/json",
