@@ -1,5 +1,6 @@
 from flask import jsonify
 from flask_jwt_extended import jwt_required, get_jwt_identity
+from datetime import timedelta
 
 # Import database models
 from models.db import db
@@ -46,8 +47,11 @@ def retrieve_tickets(jobLevel):
             base = {
                 "title": ticket.title,
                 "ticketID": ticket.id_ticket_hash,
-                "create_timestamp": create_timestamp_str(ticket.create_timestamp),
-                "last_activity": create_timestamp_str(ticket.last_activity_timestamp)
+                "create_timestamp": create_timestamp_str(
+                    ticket.create_timestamp +
+                    timedelta(hours=8)
+                ),
+                "category": ticket.category
             }
             messages.append(base)
 
