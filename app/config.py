@@ -24,3 +24,7 @@ JWT_COOKIE_DOMAIN = "127.0.0.1"
 
 # MESSAGE API
 MESSAGE_API = "https://message.chocolatepie.tech/messages/"
+
+# EMAIL API
+EMAIL_SERVER_TOKEN = ""
+POSTMAN_TOKEN = ""
