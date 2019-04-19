@@ -31,7 +31,7 @@ def retrieve_single_ticket(jobLevel, postQuery):
                 TicketRecords.id_creator == Users.id_user
             ).filter(
                 TicketRecords.id_ticket_hash == postQuery,
-                TicketRecords.id_admin == -1
+                TicketRecords.status == -1
             ).first()
         elif jobLevel == "myjobs":
             ticket, creator_name = db.session.query(
