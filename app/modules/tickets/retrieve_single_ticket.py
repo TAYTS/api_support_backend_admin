@@ -1,5 +1,6 @@
 from flask import jsonify
 from flask_jwt_extended import jwt_required, get_jwt_identity
+from datetime import timedelta
 
 # Import database models
 from models.db import db
@@ -22,12 +23,24 @@ def retrieve_single_ticket(jobLevel, postQuery):
     if id_user:
         # Define the default return message
         if jobLevel == "newjobs":
-            ticket = db.session.query(TicketRecords).filter(
+            ticket, creator_name = db.session.query(
+                TicketRecords,
+                Users.username
+            ).join(
+                Users,
+                TicketRecords.id_creator == Users.id_user
+            ).filter(
                 TicketRecords.id_ticket_hash == postQuery,
                 TicketRecords.status == -1
             ).first()
         elif jobLevel == "myjobs":
-            ticket = db.session.query(TicketRecords).filter(
+            ticket, creator_name = db.session.query(
+                TicketRecords,
+                Users.username
+            ).join(
+                Users,
+                TicketRecords.id_creator == Users.id_user
+            ).filter(
                 TicketRecords.id_ticket_hash == postQuery,
                 TicketRecords.id_admin == id_user
             ).first()
@@ -37,9 +50,13 @@ def retrieve_single_ticket(jobLevel, postQuery):
 
         queryMessage = {
             "title": ticket.title,
-            "sender": ticket.id_creator,
-            "dateTime": create_timestamp_str(ticket.create_timestamp),
-            "postID": ticket.id_ticket_hash
+            "sender": creator_name,
+            "dateTime": create_timestamp_str(
+                ticket.create_timestamp +
+                timedelta(hours=8)
+            ),
+            "postID": ticket.id_ticket_hash,
+            "category": ticket.category
         }
         return jsonify(queryMessage), 200
     return jsonify({

@@ -1,5 +1,6 @@
 from flask import jsonify
 from flask_jwt_extended import jwt_required, get_jwt_identity
+from datetime import timedelta
 
 # Import database models
 from models.db import db
@@ -50,8 +51,11 @@ def retrieve_user_tickets():
                 "title": ticket.title,
                 "ticketID": ticket.id_ticket_hash,
                 "ticketCategory": ticket.category,
-                "create_timestamp": create_timestamp_str(ticket.create_timestamp),
-                "last_activity": create_timestamp_str(ticket.last_activity_timestamp),
+                "create_timestamp": create_timestamp_str(
+                    ticket.create_timestamp +
+                    timedelta(hours=8)
+                ),
+                "category": ticket.category,
                 "status": statusStr[ticket.status]
             }
             if ticket.status <= 0:

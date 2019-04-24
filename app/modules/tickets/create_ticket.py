@@ -22,7 +22,6 @@ def create_ticket():
     # Get all the parametes
     title = str(request.json.get("title"))
     category = str(request.json.get("category"))
-    message = str(request.json.get("message"))
 
     # Get the id_user_hash from the jwt_token
     id_user_hash = get_jwt_identity()
@@ -30,7 +29,7 @@ def create_ticket():
     # Define template message
     resp_msg = {"id_ticket": ""}
 
-    if (title and category and message):
+    if (title and category):
         # Get the id_user
         id_user = db.session.query(Users.id_user).filter(
             Users.id_user_hash == id_user_hash
